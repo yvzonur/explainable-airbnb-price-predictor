@@ -4,7 +4,7 @@ An end-to-end machine learning engine that predicts nightly Airbnb rental prices
 
 Unlike standard black-box regression models, this application breaks down the exact positive and negative monetary impact of each individual feature (e.g., proximity to the Bosphorus, number of bedrooms, AC availability) on the predicted nightly rate.
 
-![UI Preview](residual_scatter.png)
+![UI Preview](ui_preview.png)
 
 ## Architecture & Methodology
 
