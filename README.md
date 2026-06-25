@@ -1,4 +1,4 @@
-# Explainable Airbnb Price Prediction System for Istanbul (SHAP & Monotonic ML)
+# Explainable Airbnb Price Prediction System for Istanbul
 
 An end-to-end machine learning engine that predicts nightly Airbnb rental prices in Istanbul and transparently explains its valuation decisions using **SHAP (SHapley Additive exPlanations)**.
 
