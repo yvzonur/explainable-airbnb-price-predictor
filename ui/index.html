@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstanbul Airbnb ML Fiyat Tahmini</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
+</head>
+
+<body>
+    <!-- Animated Ambient Background -->
+    <div class="ambient-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="glass-container">
+        <header>
+            <div class="header-badge">🤯🤯🤯</div>
+            <h1>Airbnb ML Fiyat Motoru</h1>
+            <p>100+ Makine Öğrenmesi Parametresi ile Gerçek Zamanlı İstanbul Airbnb Değerlemesi</p>
+        </header>
+
+        <main>
+            <div class="left-panel scrollable-panel">
+
+                <div class="section-block">
+                    <h3 class="section-title">📍 Lokasyon ve Konsept</h3>
+                    <div class="input-row">
+                        <div class="form-group">
+                            <label>İlçe / Semt</label>
+                            <select id="neighborhood">
+                                <option value="Besiktas">Beşiktaş (Boğaz & Merkez)</option>
+                                <option value="Kadikoy">Kadıköy (Moda & Merkez)</option>
+                                <option value="Beyoglu">Beyoğlu (Taksim & Galata)</option>
+                                <option value="Sisli">Şişli (Nişantaşı & Bomonti)</option>
+                                <option value="Fatih">Fatih (Tarihi Yarımada)</option>
+                                <option value="Sariyer">Sarıyer (Boğaz Hattı)</option>
+                                <option value="Bakirkoy">Bakırköy (Sahil)</option>
+                                <option value="Atasehir">Ataşehir (Finans Merkezi)</option>
+                                <option value="Uskudar">Üsküdar (Boğaz & Sahil)</option>
+                                <option value="Maltepe">Maltepe</option>
+                                <option value="Esenyurt">Esenyurt</option>
+                                <option value="Kagithane">Kağıthane</option>
+                                <option value="Basaksehir">Başakşehir</option>
+                                <option value="Avcilar">Avcılar</option>
+                                <option value="Beylikduzu">Beylikdüzü</option>
+                                <option value="Bagcilar">Bağcılar</option>
+                                <option value="Bahcelievler">Bahçelievler</option>
+                                <option value="Kucukcekmece">Küçükçekmece</option>
+                                <option value="Umraniye">Ümraniye</option>
+                                <option value="Other">Diğer Semtler</option>
+                            </select>
+                            <div class="geo-info" id="geo-info">Merkeze: ~4.5 km | Boğaz'a: ~1.2 km</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ev Tipi</label>
+                            <select id="room_type">
+                                <option value="Entire home/apt">🏡 Tüm Ev / Daire</option>
+                                <option value="Private room">🚪 Özel Oda</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h3 class="section-title">📐 Fiziksel Kapasite</h3>
+                    <div class="slider-grid">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label>Misafir Kapasitesi</label>
+                                <span class="slider-badge" id="badge-accommodates">2 Kişi</span>
+                            </div>
+                            <input type="range" id="accommodates" value="2" min="1" max="12" step="1">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label>Yatak Odası</label>
+                                <span class="slider-badge" id="badge-bedrooms">1 Oda</span>
+                            </div>
+                            <input type="range" id="bedrooms" value="1" min="1" max="8" step="1">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label>Banyo Sayısı</label>
+                                <span class="slider-badge" id="badge-bathrooms">1 Banyo</span>
+                            </div>
+                            <input type="range" id="bathrooms" value="1" min="1" max="5" step="0.5">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label>Min. Konaklama</label>
+                                <span class="slider-badge" id="badge-minimum_nights">1 Gece</span>
+                            </div>
+                            <input type="range" id="minimum_nights" value="1" min="1" max="30" step="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h3 class="section-title">💎 Sunulan Olanaklar (Amenities)</h3>
+                    <p class="section-subtitle">Evin fiyatını doğrudan artıran doğrulanmış etmenler</p>
+                    <div class="amenities-container" id="amenities-grid">
+                        <!-- Javascript will populate these pills dynamically -->
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h3 class="section-title">🌟 Ev Sahibi ve Yorum Puanı</h3>
+                    <div class="toggles-row">
+                        <label class="custom-toggle">
+                            <input type="checkbox" id="is_superhost">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">🎖️ Süperhost</span>
+                        </label>
+
+                        <label class="custom-toggle">
+                            <input type="checkbox" id="instant_bookable" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">⚡ Anında Rezervasyon</span>
+                        </label>
+                    </div>
+
+                    <div class="slider-grid mt-3">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label>Toplam Yorum Sayısı</label>
+                                <span class="slider-badge" id="badge-number_of_reviews">15 Yorum</span>
+                            </div>
+                            <input type="range" id="number_of_reviews" value="15" min="0" max="150" step="5">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label>Ortalama Puan</label>
+                                <span class="slider-badge" id="badge-review_scores_rating">4.8 ⭐</span>
+                            </div>
+                            <input type="range" id="review_scores_rating" value="4.8" min="3.5" max="5.0" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span>Değişiklikler anlık olarak makine öğrenmesi modeline iletiliyor</span>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Makine öğrenmesi modeli parametreleri işliyor...</p>
+                </div>
+
+                <div id="results">
+                    <div class="price-hero-card">
+                        <div class="hero-label">TAHMİNİ GECELİK DEĞER</div>
+                        <div class="price-display">
+                            <span id="predicted-price">0</span>
+                            <span class="currency">₺</span>
+                        </div>
+                        <div class="price-subtext">R² Güven Skoru: %50.5</div>
+                    </div>
+
+                    <div class="confidence-card">
+                        <div class="card-header-row">
+                            <h4>🛡️ Model Güven Aralığı</h4>
+                            <span class="mae-badge">±<span id="margin-error">0</span> ₺</span>
+                        </div>
+                        <div class="range-bar">
+                            <span id="lower-bound" class="bound-val">0 ₺</span>
+                            <div class="bar-track">
+                                <div class="bar-fill"></div>
+                            </div>
+                            <span id="upper-bound" class="bound-val">0 ₺</span>
+                        </div>
+                        <p class="small-text">Makine öğrenmesi aşırı öğrenme (overfitting) payı çıkarılarak hesaplanan
+                            optimum piyasa aralığı.</p>
+                    </div>
+
+                    <div class="shap-card">
+                        <div class="card-header-row">
+                            <h4>🧠 Fiyata Etki Eden Etmenler</h4>
+                        </div>
+                        <p class="small-text mb-3">Bu evin fiyatını belirleyen en kritik pozitif ve negatif etmenler:
+                        </p>
+
+                        <div class="shap-list-container" id="shap-list">
+                            <!-- Javascript visual bars will populate here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="welcome-message" class="hidden">
+                    <!-- Kept hidden as we do live calculation by default -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js?v=3"></script>
+</body>
+
+</html>
